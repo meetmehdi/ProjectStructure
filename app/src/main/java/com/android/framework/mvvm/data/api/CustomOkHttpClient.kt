@@ -10,7 +10,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-class OkHttpClientInstance {
+class CustomOkHttpClient {
     private val timeOut = 3
 
     fun createOkHttpClient(): OkHttpClient {

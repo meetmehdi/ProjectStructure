@@ -2,7 +2,7 @@ package com.android.framework.mvvm.di
 
 import com.android.framework.mvvm.BuildConfig
 import com.android.framework.mvvm.data.api.ApiService
-import com.android.framework.mvvm.data.api.OkHttpClientInstance
+import com.android.framework.mvvm.data.api.CustomOkHttpClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -21,7 +21,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient() = OkHttpClientInstance().createOkHttpClient()
+    fun provideOkHttpClient() = CustomOkHttpClient().createOkHttpClient()
 
     @Provides
     @Singleton

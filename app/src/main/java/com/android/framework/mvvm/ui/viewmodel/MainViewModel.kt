@@ -1,8 +1,8 @@
 package com.android.framework.mvvm.ui.viewmodel
 
 import androidx.lifecycle.*
+import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.model.User
-import com.android.framework.mvvm.data.repository.MainRepository
 import com.android.framework.mvvm.utils.NetworkHelper
 import com.android.framework.mvvm.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository,
+    private val apiService: ApiService,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _users.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
-                mainRepository.getUsers().let {
+                apiService.getUsers().let {
                     if (it.isSuccessful) {
                         _users.postValue(Resource.success(it.body()))
                     } else _users.postValue(Resource.error(it.errorBody().toString(), null))
