@@ -1,15 +1,18 @@
 package com.android.framework.mvvm.data.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
-
+@Entity(tableName = "user")
 data class User(
-    @Json(name = "id")
+    @PrimaryKey @ColumnInfo @Json(name = "id")
     val id: Int = 0,
-    @Json(name = "name")
+    @ColumnInfo @Json(name = "name")
     val name: String = "",
-    @Json(name = "email")
+    @ColumnInfo @Json(name = "email")
     val email: String = "",
-    @Json(name = "avatar")
+    @ColumnInfo @Json(name = "avatar")
     val avatar: String = ""
 )
