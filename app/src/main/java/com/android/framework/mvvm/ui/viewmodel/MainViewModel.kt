@@ -12,6 +12,7 @@ import com.android.framework.mvvm.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -19,6 +20,7 @@ class MainViewModel @Inject constructor(
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
     @Inject
+    @Named("dbHelper")
     lateinit var dbHelper: DbHelper
 
     val insertSuccess: MutableLiveData<Int> = MutableLiveData()
