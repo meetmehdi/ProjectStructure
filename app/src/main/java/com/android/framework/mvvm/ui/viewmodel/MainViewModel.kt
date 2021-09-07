@@ -1,29 +1,40 @@
 package com.android.framework.mvvm.ui.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.model.User
+import com.android.framework.mvvm.data.repository.db.DbHelper
 import com.android.framework.mvvm.utils.NetworkHelper
 import com.android.framework.mvvm.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val apiService: ApiService,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
+    @Inject
+    @Named("dbHelper")
+    lateinit var dbHelper: DbHelper
+
+    val insertSuccess: MutableLiveData<Int> = MutableLiveData()
+
 
     private val _users = MutableLiveData<Resource<List<User>>>()
     val users: LiveData<Resource<List<User>>>
         get() = _users
 
     init {
-        fetchUsers()
+        initUsers()
     }
 
-    private fun fetchUsers() {
+    private fun initUsers() {
         viewModelScope.launch {
             _users.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -35,4 +46,11 @@ class MainViewModel @Inject constructor(
             } else _users.postValue(Resource.error("No internet connection", null))
         }
     }
+
+    fun insertUsers(users: List<User>) {
+        dbHelper.insertUser(users, insertSuccess)
+    }
+
+    fun fetchUsers() = dbHelper.fetchUsers()
+
 }

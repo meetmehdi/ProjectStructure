@@ -1,21 +1,24 @@
 package com.android.framework.mvvm.di
 
+import android.content.Context
 import com.android.framework.mvvm.BuildConfig
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.api.CustomOkHttpClient
+import com.android.framework.mvvm.data.repository.db.DbHelper
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import javax.inject.Singleton
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
-
     @Provides
     fun provideBaseUrl() = BuildConfig.BASE_URL
 
@@ -39,4 +42,10 @@ class ApplicationModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
+
+    @Provides
+    @Singleton
+    @Named ("dbHelper")
+    fun provideDatabaseHelper(@ApplicationContext appContext: Context): DbHelper =
+        DbHelper(appContext)
 }

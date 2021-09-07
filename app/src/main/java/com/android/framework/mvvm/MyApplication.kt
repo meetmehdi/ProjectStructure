@@ -1,7 +1,10 @@
 package com.android.framework.mvvm
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App : Application()
+class MyApplication : MultiDexApplication() {
+
+
+}

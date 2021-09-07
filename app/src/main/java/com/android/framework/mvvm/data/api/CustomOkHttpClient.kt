@@ -87,7 +87,5 @@ class CustomOkHttpClient {
                 "did not work"
             }
         }
-
     }
-
 }
