@@ -7,8 +7,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.android.framework.mvvm.BuildConfig
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.api.CustomOkHttpClient
+import com.android.framework.mvvm.data.repository.UserRepository
 import com.android.framework.mvvm.data.repository.db.AppDatabase
-import com.android.framework.mvvm.data.repository.db.DbHelper
 import com.android.framework.mvvm.utilities.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,6 @@ import io.reactivex.disposables.CompositeDisposable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -63,8 +62,6 @@ class ApplicationModule {
             Room.databaseBuilder(appContext, AppDatabase::class.java, DATABASE_NAME)
                 .addMigrations(MIGRATION_1_2)
                 .build()
-
-
         }
     }
 
@@ -75,10 +72,11 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-//    @Named ("dbHelper")
-    fun provideDatabaseHelper(
-        @ApplicationContext appContext: Context,
+    fun providerUserRepository(
         appDatabase: AppDatabase,
         compositeDisposable: CompositeDisposable
-    ): DbHelper = DbHelper(appContext, appDatabase, compositeDisposable)
+    ): UserRepository = UserRepository(
+        appDatabase, compositeDisposable,
+        provideApiService(provideRetrofit(provideOkHttpClient(), provideBaseUrl()))
+    )
 }

@@ -6,20 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.model.User
-import com.android.framework.mvvm.data.repository.db.DbHelper
+import com.android.framework.mvvm.data.repository.UserRepository
 import com.android.framework.mvvm.utils.NetworkHelper
 import com.android.framework.mvvm.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val apiService: ApiService,
     private val networkHelper: NetworkHelper,
-    private val dbHelper: DbHelper
-) : ViewModel() {
+    private val userRepository: UserRepository) : ViewModel() {
 
     private val _users = MutableLiveData<Resource<List<User>>>()
     val users: LiveData<Resource<List<User>>>
@@ -33,7 +31,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _users.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
-                apiService.getUsers().let {
+                userRepository.getUser().let {
                     if (it.isSuccessful) {
                         _users.postValue(Resource.success(it.body()))
                     } else _users.postValue(Resource.error(it.errorBody().toString(), null))
@@ -42,8 +40,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun insertUsers(users: List<User>) = dbHelper.insertUser(users)
+    fun insertUsers(users: List<User>) = userRepository.insertUser(users)
 
-    fun fetchUsers() = dbHelper.fetchUsers()
+    fun fetchUsers() = userRepository.fetchUsers()
 
 }

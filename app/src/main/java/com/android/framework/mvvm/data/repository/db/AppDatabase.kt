@@ -6,7 +6,6 @@ import androidx.room.TypeConverters
 import com.android.framework.mvvm.data.model.User
 import com.android.framework.mvvm.data.repository.dao.UserDao
 import com.android.framework.mvvm.utilities.DATABASE_VERSION
-import dagger.hilt.android.HiltAndroidApp
 
 
 @Database(
