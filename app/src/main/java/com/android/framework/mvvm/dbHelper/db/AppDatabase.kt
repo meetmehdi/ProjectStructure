@@ -1,10 +1,10 @@
-package com.android.framework.mvvm.data.repository.db
+package com.android.framework.mvvm.dbHelper.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.android.framework.mvvm.data.model.User
-import com.android.framework.mvvm.data.repository.dao.UserDao
+import com.android.framework.mvvm.dbHelper.dao.UserDao
 import com.android.framework.mvvm.utilities.DATABASE_VERSION
 
 

@@ -1,4 +1,4 @@
-package com.android.framework.mvvm.data.repository.dao
+package com.android.framework.mvvm.dbHelper.dao
 
 import androidx.room.*
 import com.android.framework.mvvm.data.model.User

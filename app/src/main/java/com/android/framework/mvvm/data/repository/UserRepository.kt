@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.model.User
-import com.android.framework.mvvm.data.repository.db.AppDatabase
+import com.android.framework.mvvm.dbHelper.db.AppDatabase
 import com.android.framework.mvvm.utilities.DebugHelperUtility
 import com.android.framework.mvvm.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,10 +26,6 @@ class UserRepository @Inject constructor(
     fun insertUser(users: List<User>): MutableLiveData<Status> {
 
         val insertSuccess: MutableLiveData<Status> = MutableLiveData()
-//
-//        CoroutineScope(Dispatchers.IO).launch{
-//            appDatabase.userDao().insert(users)
-//        }
 
         val completable = appDatabase.userDao().insert(users)
             .andThen(appDatabase.userDao().insert(users))

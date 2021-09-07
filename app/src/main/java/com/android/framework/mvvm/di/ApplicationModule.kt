@@ -7,8 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.android.framework.mvvm.BuildConfig
 import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.api.CustomOkHttpClient
-import com.android.framework.mvvm.data.repository.UserRepository
-import com.android.framework.mvvm.data.repository.db.AppDatabase
+import com.android.framework.mvvm.dbHelper.db.AppDatabase
 import com.android.framework.mvvm.utilities.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -69,14 +68,4 @@ class ApplicationModule {
     @Singleton
     fun providerCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
-//
-//    @Provides
-//    @Singleton
-//    fun providerUserRepository(
-//        appDatabase: AppDatabase,
-//        compositeDisposable: CompositeDisposable
-//    ): UserRepository = UserRepository(
-//        appDatabase, compositeDisposable,
-//        provideApiService(provideRetrofit(provideOkHttpClient(), provideBaseUrl()))
-//    )
 }
