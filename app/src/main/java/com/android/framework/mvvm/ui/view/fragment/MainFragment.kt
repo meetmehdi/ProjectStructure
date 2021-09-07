@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
-
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
 
@@ -47,12 +46,10 @@ class MainFragment : Fragment() {
                 (recyclerView.layoutManager as LinearLayoutManager).orientation
             )
         )
-
         recyclerView.adapter = adapter
     }
 
     private fun setupObserver() {
-
         mainViewModel.users.observe(requireActivity(), {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -75,7 +72,7 @@ class MainFragment : Fragment() {
                 }
 
                 Status.ERROR -> {
-                    //Handle Error
+                    // Handle Error
                     progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                 }
@@ -85,7 +82,5 @@ class MainFragment : Fragment() {
 
     private fun renderList(users: List<User>) {
         adapter.addData(users)
-
     }
-
 }

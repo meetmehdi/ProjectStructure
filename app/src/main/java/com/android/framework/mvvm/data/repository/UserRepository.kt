@@ -14,17 +14,16 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
+    private val apiService: ApiService,
     private val appDatabase: AppDatabase,
-    private val compositeDisposable: CompositeDisposable,
-    private val apiService: ApiService
+    private val compositeDisposable: CompositeDisposable
 ) {
 
-    suspend fun getUser() : Response<List<User>> {
+    suspend fun getUser(): Response<List<User>> {
         return apiService.getUsers()
     }
 
     fun insertUser(users: List<User>): MutableLiveData<Status> {
-
         val insertSuccess: MutableLiveData<Status> = MutableLiveData()
 
         val completable = appDatabase.userDao().insert(users)
@@ -46,7 +45,6 @@ class UserRepository @Inject constructor(
     }
 
     fun fetchUsers(): MutableLiveData<List<User>> {
-
         val mutableLiveData: MutableLiveData<List<User>> = MutableLiveData()
         val disposable = appDatabase.userDao().getUserData()
             .subscribeOn(Schedulers.io())
@@ -64,7 +62,6 @@ class UserRepository @Inject constructor(
     }
 
     private fun deleteAllData() {
-
         val disposable = appDatabase.userDao().deleteAll()
             .andThen(appDatabase.userDao().deleteAll())
             .subscribeOn(Schedulers.io())
@@ -76,5 +73,4 @@ class UserRepository @Inject constructor(
             })
         compositeDisposable.add(disposable)
     }
-
 }

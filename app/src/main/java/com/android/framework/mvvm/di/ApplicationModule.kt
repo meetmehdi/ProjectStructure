@@ -23,7 +23,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
-
     @Provides
     fun provideBaseUrl() = BuildConfig.BASE_URL
 
@@ -47,11 +46,9 @@ class ApplicationModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
-
     @Provides
     @Singleton
     fun providerAppDataBase(@ApplicationContext appContext: Context): AppDatabase {
-
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
             }
@@ -67,5 +64,4 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providerCompositeDisposable(): CompositeDisposable = CompositeDisposable()
-
 }
