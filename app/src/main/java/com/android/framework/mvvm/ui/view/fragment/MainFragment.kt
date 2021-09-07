@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.framework.mvvm.R
 import com.android.framework.mvvm.data.model.User
-import com.android.framework.mvvm.ui.main.adapter.MainAdapter
+import com.android.framework.mvvm.ui.adapter.MainAdapter
 import com.android.framework.mvvm.ui.viewmodel.MainViewModel
 import com.android.framework.mvvm.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
+
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
 
@@ -52,17 +52,28 @@ class MainFragment : Fragment() {
     }
 
     private fun setupObserver() {
+
         mainViewModel.users.observe(requireActivity(), {
             when (it.status) {
                 Status.SUCCESS -> {
                     progressBar.visibility = View.GONE
-                    it.data?.let { users -> mainViewModel.insertUsers(users) }
+                    it.data?.let { users ->
+                        mainViewModel.insertUsers(users).observe(viewLifecycleOwner, { status ->
+                            if (status == Status.SUCCESS) {
+                                mainViewModel.fetchUsers().observe(requireActivity(), { userList ->
+                                    renderList(userList)
+                                })
+                            }
+                        })
+                    }
                     recyclerView.visibility = View.VISIBLE
                 }
+
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                 }
+
                 Status.ERROR -> {
                     //Handle Error
                     progressBar.visibility = View.GONE
@@ -70,17 +81,11 @@ class MainFragment : Fragment() {
                 }
             }
         })
-
-        mainViewModel.insertSuccess.observe(requireActivity(), Observer {
-            mainViewModel.fetchUsers().observe(requireActivity(), Observer {
-                renderList(it)
-            })
-        })
     }
 
     private fun renderList(users: List<User>) {
         adapter.addData(users)
-        adapter.notifyDataSetChanged()
+
     }
 
 }

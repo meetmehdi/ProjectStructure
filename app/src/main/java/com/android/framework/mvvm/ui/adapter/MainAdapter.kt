@@ -1,4 +1,4 @@
-package com.android.framework.mvvm.ui.main.adapter
+package com.android.framework.mvvm.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -38,5 +38,6 @@ class MainAdapter(
 
     fun addData(list: List<User>) {
         users.addAll(list)
+        notifyDataSetChanged()
     }
 }

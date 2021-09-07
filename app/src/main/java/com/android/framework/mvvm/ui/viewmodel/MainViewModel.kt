@@ -17,14 +17,9 @@ import javax.inject.Named
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val apiService: ApiService,
-    private val networkHelper: NetworkHelper
+    private val networkHelper: NetworkHelper,
+    private val dbHelper: DbHelper
 ) : ViewModel() {
-    @Inject
-    @Named("dbHelper")
-    lateinit var dbHelper: DbHelper
-
-    val insertSuccess: MutableLiveData<Int> = MutableLiveData()
-
 
     private val _users = MutableLiveData<Resource<List<User>>>()
     val users: LiveData<Resource<List<User>>>
@@ -47,9 +42,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun insertUsers(users: List<User>) {
-        dbHelper.insertUser(users, insertSuccess)
-    }
+    fun insertUsers(users: List<User>) = dbHelper.insertUser(users)
 
     fun fetchUsers() = dbHelper.fetchUsers()
 

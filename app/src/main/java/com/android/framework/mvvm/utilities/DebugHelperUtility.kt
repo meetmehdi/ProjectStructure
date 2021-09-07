@@ -4,13 +4,13 @@ import android.util.Log
 
 object DebugHelperUtility {
     /** The mode debug.  */
-    private val MODE_DEBUG = true
+    private const val MODE_DEBUG = true
 
     /** The mode debug.  */
-    private val MODE_TRACK = true
+    private const val MODE_TRACK = true
 
     /** The Constant TAG.  */
-    private val TAG = "DebugHelper"
+    private const val TAG = "DebugHelper"
 
     /**
      * Prints the and track exception.
