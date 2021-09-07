@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun initUsers() {
+
         viewModelScope.launch {
             _users.postValue(Resource.loading(null))
             if (networkHelper.isNetworkConnected()) {
@@ -37,6 +38,7 @@ class MainViewModel @Inject constructor(
                     } else _users.postValue(Resource.error(it.errorBody().toString(), null))
                 }
             } else _users.postValue(Resource.error("No internet connection", null))
+
         }
     }
 
