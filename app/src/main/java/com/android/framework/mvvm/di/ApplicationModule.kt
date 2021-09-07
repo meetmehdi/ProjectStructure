@@ -69,14 +69,14 @@ class ApplicationModule {
     @Singleton
     fun providerCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
-
-    @Provides
-    @Singleton
-    fun providerUserRepository(
-        appDatabase: AppDatabase,
-        compositeDisposable: CompositeDisposable
-    ): UserRepository = UserRepository(
-        appDatabase, compositeDisposable,
-        provideApiService(provideRetrofit(provideOkHttpClient(), provideBaseUrl()))
-    )
+//
+//    @Provides
+//    @Singleton
+//    fun providerUserRepository(
+//        appDatabase: AppDatabase,
+//        compositeDisposable: CompositeDisposable
+//    ): UserRepository = UserRepository(
+//        appDatabase, compositeDisposable,
+//        provideApiService(provideRetrofit(provideOkHttpClient(), provideBaseUrl()))
+//    )
 }

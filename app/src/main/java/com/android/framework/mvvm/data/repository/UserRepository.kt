@@ -11,8 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
+import javax.inject.Inject
 
-class UserRepository(
+class UserRepository @Inject constructor(
     private val appDatabase: AppDatabase,
     private val compositeDisposable: CompositeDisposable,
     private val apiService: ApiService
