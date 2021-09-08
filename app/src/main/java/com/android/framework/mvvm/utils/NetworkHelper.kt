@@ -37,7 +37,6 @@ class NetworkHelper @Inject constructor(@ApplicationContext private val context:
                 }
             }
         }
-
         return result
     }
 }

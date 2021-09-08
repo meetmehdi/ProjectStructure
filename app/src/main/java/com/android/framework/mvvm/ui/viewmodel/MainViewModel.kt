@@ -22,7 +22,8 @@ class MainViewModel @Inject constructor(
         get() = userList
 
     init {
-        initUsers()
+        // initUsers()
+        fetchAllUsers()
     }
 
     private fun initUsers() {
@@ -35,9 +36,10 @@ class MainViewModel @Inject constructor(
                     } else userList.postValue(Resource.error(it.errorBody().toString(), null))
                 }
             } else userList.postValue(Resource.error("No internet connection", null))
-
         }
     }
+
+    private fun fetchAllUsers() = userRepository.getUserList(userList)
 
     fun insertUsers(users: List<User>) = userRepository.insertUser(users)
 

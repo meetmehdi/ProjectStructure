@@ -6,6 +6,7 @@ import com.android.framework.mvvm.data.api.ApiService
 import com.android.framework.mvvm.data.model.User
 import com.android.framework.mvvm.dbHelper.db.AppDatabase
 import com.android.framework.mvvm.utilities.DebugHelperUtility
+import com.android.framework.mvvm.utils.Resource
 import com.android.framework.mvvm.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,6 +22,23 @@ class UserRepository @Inject constructor(
 
     suspend fun getUser(): Response<List<User>> {
         return apiService.getUsers()
+    }
+
+    fun getUserList(userList: MutableLiveData<Resource<List<User>>>) {
+        compositeDisposable.add(
+            apiService.getUsersList().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe({ response ->
+                    if (response.isSuccessful) {
+                        userList.postValue(Resource.success(response.body()))
+                    } else userList.postValue(
+                        Resource.error(
+                            response.errorBody().toString(),
+                            null
+                        )
+                    )
+                },
+                    { t -> userList.postValue(Resource.error("No internet connection", null)) })
+        )
     }
 
     fun insertUser(users: List<User>): MutableLiveData<Status> {
