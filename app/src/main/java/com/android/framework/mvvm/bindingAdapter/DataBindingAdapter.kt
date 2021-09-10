@@ -23,11 +23,15 @@ object DataBindingAdapter {
     @JvmStatic
     @BindingAdapter("emailValidation")
     fun isValidEmail(editText: EditText,email:String?) {
-        if (!email.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
+        if (TextUtils.isEmpty(email)){
             editText.error = null
             return
-        }else{
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             editText.error = "Please enter a valid email"
+            return
+        }else{
+            editText.error = null
             return
         }
     }

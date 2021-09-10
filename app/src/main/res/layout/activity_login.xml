@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="dataModel"
+            name="loginModel"
             type="com.android.framework.mvvm.data.model.LoginModel" />
 
         <variable
@@ -31,8 +31,8 @@
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="true"
-            emailValidation="@{dataModel.email}"
-            android:text="@={dataModel.email}"
+            emailValidation="@{loginModel.email}"
+            android:text="@={loginModel.email}"
             android:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,8 +47,8 @@
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            passwordValidator="@{dataModel.password}"
-            android:text="@={dataModel.password}"
+            passwordValidator="@{loginModel.password}"
+            android:text="@={loginModel.password}"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
