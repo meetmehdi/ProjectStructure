@@ -32,6 +32,7 @@ data class LoginModel (
         }
 
     fun isValidate(context: Context):Boolean{
+
         if (!Patterns.EMAIL_ADDRESS.matcher(_email).matches()){
             Toast.makeText(context,"Please enter valid email",Toast.LENGTH_LONG).show()
             return false

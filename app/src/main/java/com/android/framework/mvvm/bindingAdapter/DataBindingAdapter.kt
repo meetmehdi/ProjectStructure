@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.android.framework.mvvm.data.model.LoginModel
 
 object DataBindingAdapter {
+
     @JvmStatic
     @BindingAdapter("passwordValidator")
     fun passwordValidator(editText: EditText, password: String?) {

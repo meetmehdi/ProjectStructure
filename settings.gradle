@@ -1,2 +1,3 @@
-rootProject.name='MVVM-Architecture-Android-Beginners'
+rootProject.name='MVVM-Project-Structure'
+include ':imagepickerlibrary'
 include ':app'
