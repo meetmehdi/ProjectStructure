@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
+import com.android.framework.mvvm.data.model.LoginModel
 
 object DataBindingAdapter {
     @JvmStatic
@@ -35,4 +36,5 @@ object DataBindingAdapter {
             return
         }
     }
+
 }
