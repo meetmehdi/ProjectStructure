@@ -36,8 +36,7 @@ class UserRepository @Inject constructor(
                             null
                         )
                     )
-                },
-                    { t -> userList.postValue(Resource.error("No internet connection", null)) })
+                }, { t -> userList.postValue(Resource.error(t.message.toString(), null)) })
         )
     }
 
