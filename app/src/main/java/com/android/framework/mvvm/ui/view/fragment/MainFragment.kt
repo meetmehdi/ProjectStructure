@@ -1,5 +1,6 @@
 package com.android.framework.mvvm.ui.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.framework.mvvm.R
 import com.android.framework.mvvm.data.model.User
+import com.android.framework.mvvm.interfaces.ViewNavigation
 import com.android.framework.mvvm.ui.adapter.MainAdapter
 import com.android.framework.mvvm.ui.viewmodel.MainViewModel
 import com.android.framework.mvvm.utils.Status
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), ViewNavigation {
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var adapter: MainAdapter
 
@@ -32,6 +34,8 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainViewModel.navigationEvent.setEventReceiver(viewLifecycleOwner,this)
         setupUI()
         setupObserver()
     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SSImagePicker</string>
+
+    <string name="str_camera">"Camera"</string>
+    <string name="str_gallery">"Gallery"</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="error_exception_message">Pass activity or fragment.</string>
+    <string name="error_invalid_context_message">Invalid context</string>
+</resources>

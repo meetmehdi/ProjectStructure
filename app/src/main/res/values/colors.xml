@@ -3,4 +3,11 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_bg">#D9FEF2</color>
+    <color name="color__bottom_sheet_bg">#ecfff9</color>
+    <color name="color_text">#194F54</color>
+    <color name="color_cancel_text">#6F7B7A</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.android.framework.mvvm.data.model
 
+import androidx.databinding.BaseObservable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -24,6 +24,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
+
     @Provides
     fun provideBaseUrl() = BuildConfig.BASE_URL
 
@@ -66,4 +67,5 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providerCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+
 }
