@@ -3,15 +3,11 @@ package com.android.framework.mvvm.ui.view.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
 import com.android.framework.mvvm.R
-import com.android.framework.mvvm.data.model.LoginModel
 import com.android.framework.mvvm.databinding.ActivityLoginBinding
 import com.android.framework.mvvm.ui.viewmodel.LoginViewModel
 import com.app.imagepickerlibrary.ImagePickerActivityClass
@@ -21,11 +17,11 @@ import com.app.imagepickerlibrary.bottomSheetActionGallary
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity: AppCompatActivity(),
+class LoginActivity : AppCompatActivity(),
     ImagePickerBottomsheet.ItemClickListener, ImagePickerActivityClass.OnResult {
 
-    private val viewModel:LoginViewModel by viewModels()
-    private lateinit var loginBinding:ActivityLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var loginBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +29,15 @@ class LoginActivity: AppCompatActivity(),
         loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         loginBinding.viewModel = viewModel
-        loginBinding.loginModel = viewModel.loginModel
         loginBinding.lifecycleOwner = this
+        loginBinding.loginModel = viewModel.loginModel
 
-        viewModel.imagePicker = ImagePickerActivityClass(this, this, activityResultRegistry, activity = this)
-        //set to true if you want all features(crop,rotate,zoomIn,zoomOut)
-        //by Default it's value is set to false (only crop feature is enabled)
+        viewModel.imagePicker =
+            ImagePickerActivityClass(this, this, activityResultRegistry, activity = this)
+
+        // set to true if you want all features(crop,rotate,zoomIn,zoomOut)
+        // by Default it's value is set to false (only crop feature is enabled)
+
         viewModel.imagePicker.cropOptions(true)
     }
 
@@ -72,10 +71,13 @@ class LoginActivity: AppCompatActivity(),
             setButtonColors(
                 galleryButtonColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary),
                 cameraButtonColor = ContextCompat.getColor(requireContext(), R.color.colorPrimary),
-                cancelButtonColor = ContextCompat.getColor(requireContext(), R.color.color_cancel_text)
+                cancelButtonColor = ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_cancel_text
+                )
             )
 
-            //To customize bottomsheet style
+            //to customize bottom sheet style
             setBottomSheetBackgroundStyle(R.drawable.drawable_bottom_sheet_dialog)
         }
     }

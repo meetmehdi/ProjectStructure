@@ -19,7 +19,6 @@ class UserRepository @Inject constructor(
     private val appDatabase: AppDatabase,
     private val compositeDisposable: CompositeDisposable
 ) {
-
     suspend fun getUser(): Response<List<User>> {
         return apiService.getUsers()
     }

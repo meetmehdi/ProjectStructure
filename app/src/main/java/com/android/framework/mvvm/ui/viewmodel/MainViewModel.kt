@@ -10,7 +10,6 @@ import com.android.framework.mvvm.utils.LiveMessageEvent
 import com.android.framework.mvvm.utils.NetworkHelper
 import com.android.framework.mvvm.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +42,6 @@ class MainViewModel @Inject constructor(
             } catch (e: Exception) {
                 userList.postValue(Resource.error(e.message.toString(), null))
             }
-
         }
     }
 

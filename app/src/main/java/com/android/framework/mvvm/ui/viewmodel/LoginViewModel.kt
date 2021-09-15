@@ -10,21 +10,25 @@ import com.app.imagepickerlibrary.ImagePickerActivityClass
 import com.app.imagepickerlibrary.ImagePickerBottomsheet
 import com.app.imagepickerlibrary.bottomSheetActionFragment
 
-class LoginViewModel: BaseViewModel(){
-
-    val loginModel:LoginModel = LoginModel()
+class LoginViewModel : BaseViewModel() {
+    val loginModel: LoginModel = LoginModel()
     lateinit var imagePicker: ImagePickerActivityClass
 
-    fun onClickButtonLogin(view:View){
-        if (loginModel.isValidate(view.context)){
-            view.context.startActivity(Intent(
-                view.context,MainActivity::class.java
-            ))
+    fun onClickButtonLogin(view: View) {
+        if (loginModel.isValidate(view.context)) {
+            view.context.startActivity(
+                Intent(
+                    view.context, MainActivity::class.java
+                )
+            )
         }
     }
 
-    fun onClickImagePicker(view:View){
+    fun onClickImagePicker(view: View) {
         val fragment = ImagePickerBottomsheet()
-        fragment.show((view.context as LoginActivity).supportFragmentManager, bottomSheetActionFragment)
+        fragment.show(
+            (view.context as LoginActivity).supportFragmentManager,
+            bottomSheetActionFragment
+        )
     }
 }
