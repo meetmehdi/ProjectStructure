@@ -13,11 +13,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
 class UserRepository @Inject constructor(
     private val apiService: ApiService,
     private val appDatabase: AppDatabase,
-    private val compositeDisposable: CompositeDisposable
+    private val compositeDisposable: CompositeDisposable,
+    @Named("header") private val loginHeader: HashMap<String, String>
 ) {
     suspend fun getUser(): Response<List<User>> {
         return apiService.getUsers()
@@ -25,7 +27,7 @@ class UserRepository @Inject constructor(
 
     fun getUserList(userList: MutableLiveData<Resource<List<User>>>) {
         compositeDisposable.add(
-            apiService.getUsersList().subscribeOn(Schedulers.io())
+            apiService.getUsersList(loginHeader).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({ response ->
                     if (response.isSuccessful) {
                         userList.postValue(Resource.success(response.body()))

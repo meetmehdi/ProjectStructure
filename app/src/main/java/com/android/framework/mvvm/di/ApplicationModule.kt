@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -67,4 +68,22 @@ class ApplicationModule {
     @Singleton
     fun providerCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
+    @Provides
+    @Named("header")
+    @Singleton
+    fun getHeader(): HashMap<String, String> {
+        val headerMap: HashMap<String, String> = HashMap()
+        headerMap["Accept"] = "application/json"
+        return headerMap
+    }
+
+    @Provides
+    @Named("loginHeader")
+    @Singleton
+    fun providerLoginHeader(): HashMap<String, String> {
+        val headerMap: HashMap<String, String> = HashMap()
+        headerMap["Accept"] = "application/test"
+        headerMap["Test"] = "test"
+        return headerMap
+    }
 }

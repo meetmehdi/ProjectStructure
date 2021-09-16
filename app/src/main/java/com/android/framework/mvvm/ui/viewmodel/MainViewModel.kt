@@ -24,8 +24,8 @@ class MainViewModel @Inject constructor(
         get() = userList
 
     init {
-        initUsers()
-//        fetchAllUsers()
+//        initUsers()
+        fetchAllUsers()
     }
 
     private fun initUsers() {
